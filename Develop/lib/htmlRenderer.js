@@ -39,7 +39,7 @@ const renderEngineer = engineer => {
   template = replacePlaceholders(template, "role", engineer.getRole());
   template = replacePlaceholders(template, "email", engineer.getEmail());
   template = replacePlaceholders(template, "id", engineer.getId());
-  template = replacePlaceholders(template, "gitHub", engineer.getGithub());
+  template = replacePlaceholders(template, "gitHub", engineer.getGitHub());
   return template;
 };
 

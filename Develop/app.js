@@ -157,7 +157,7 @@ const teamMemberQs = [
     {
         type: 'list',
         name: 'addTeam',
-        message: "Would you like to add employees to the manager's team?",
+        message: "Would you like to add more employees?",
         choices: ['Yes', 'No']
     }
 ];
@@ -169,16 +169,16 @@ const initManager = function () {
         if (response.addTeam === 'Yes') {
             initEmployee();
         } else {
-            console.log(employeeList);
             var html = render(employeeList);
+            if (!fs.existsSync(OUTPUT_DIR)) {
             fs.mkdir(path.join(__dirname, 'output'), {}, function(err) {
                 if (err)  throw (err); 
                 console.log('Folder Created...');
-            })
+            })} else {
             fs.writeFile(outputPath, html, (err) => {
                 if (err) throw (err);
-                console.log("File written to...");
-            })
+                console.log('File written to...');
+            })}
         }
     })
 }
@@ -188,25 +188,25 @@ const initEmployee = function () {
         if (response.role === 'Engineer') {
             let newEngineer = new Engineer(response.name, response.email, response.id, response.gitHub);
             employeeList.push(newEngineer);
-            console.log(employees);
+            console.log(employeeList);
         } else {
             let newIntern = new Intern(response.name, response.email, response.id, response.school);
             employeeList.push(newIntern);
-            console.log(employees);
+            console.log(employeeList);
         }
         if (response.addTeam === 'Yes') {
             initEmployee();
         } else {
-            console.log(employeeList);
             var html = render(employeeList);
+            if (!fs.existsSync(OUTPUT_DIR)) {
             fs.mkdir(path.join(__dirname, 'output'), {}, function(err) {
                 if (err)  throw (err); 
                 console.log('Folder Created...');
-            })
+            })} else {
             fs.writeFile(outputPath, html, (err) => {
                 if (err) throw (err);
-                console.log("File written to...");
-            })
+                console.log('File written to...');
+            })}
         }
         
     })
