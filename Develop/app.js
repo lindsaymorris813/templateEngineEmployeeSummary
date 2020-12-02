@@ -10,7 +10,7 @@ const outputPath = path.join(OUTPUT_DIR, "team.html");
 
 const render = require("./lib/htmlRenderer");
 const Employee = require("./lib/Employee");
-let employees =[];
+let employees = [];
 
 // Write code to use inquirer to gather information about the development team members,
 // and to create objects for each team member (using the correct classes as blueprints!)
@@ -81,6 +81,12 @@ const teamManagerQs = [
             return;
         }
     }
+    {
+        type: 'list',
+        name: 'addTeam',
+        message: "Would you like to add employees to the manager's team?",
+        choices: ['Yes', 'No']
+    }
 ];
 
 const teamMemberQs = [
@@ -147,10 +153,10 @@ const teamMemberQs = [
             }
             return;
         }
-    }, 
-    ]; 
+    },
+];
 
- const addAnEmployeeQs = [
+const addAnEmployeeQs = [
     {
         type: 'list',
         name: 'addEmployee',
@@ -161,31 +167,43 @@ const teamMemberQs = [
         when: response => {
             if (response === "Yes") {
                 initEmployee();
-            } else{
+            } else {
                 return;
             }
         }
     }
- ]   
+]
 
 
-const initManager = function() {
+const initManager = function () {
     inquirer.prompt(teamManagerQs).then(response => {
         let newManager = new Manager(response.name, response.email, response.id, response.office);
         employees.push(newManager);
-    }).then(initEmployee());
+    }).then(response => {
+        if (response.addTeam === 'Yes') {
+            initEmployee();
+        } else {
+            return;
+        }
+    })
 }
 
-const initEmployee = function() {
+const initEmployee = function () {
     inquirer.prompt(teamMemberQs).then(response => {
-            if (response.role === 'Engineer') {
-                let newEngineer = new Engineer (response.name, response.email, response.id, response.gitHub);
-                employees.push(newEngineer);
-            } else{
-                let newIntern = new Intern(response.name, response.email, response.id, response.school);
-                employees.push(newIntern);
+        if (response.role === 'Engineer') {
+            let newEngineer = new Engineer(response.name, response.email, response.id, response.gitHub);
+            employees.push(newEngineer);
+        } else {
+            let newIntern = new Intern(response.name, response.email, response.id, response.school);
+            employees.push(newIntern);
+        }
+        inquirer.prompt(addAnEmployeeQs).then(response => {
+            if (response.addTeam === 'Yes') {
+                initEmployee();
+            } else {
+                render();
             }
-            inquirer.prompt(addAnEmployeeQs).then(render());
+        })
     })
 }
 
