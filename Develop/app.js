@@ -44,8 +44,9 @@ const teamManagerQs = [
         validate: response => {
             if (response.trim() === "") {
                 console.log('Please enter a name.')
-            } return true;
-        }
+            } else {
+                return true;
+        }}
     },
     {
         type: 'input',
@@ -54,8 +55,9 @@ const teamManagerQs = [
         validate: response => {
             if (response.trim() === "") {
                 console.log('Please enter a valid email address.')
-            } return true;
-        }
+            } else {
+                return true;
+        }}
     },
     {
         type: 'input',
@@ -64,8 +66,9 @@ const teamManagerQs = [
         validate: response => {
             if (response.trim() === "") {
                 console.log('Please enter a valid employee ID number.');
-            } return true;
-        }
+            } else {
+                return true;
+        }}
     },
     {
         type: 'input',
@@ -74,8 +77,9 @@ const teamManagerQs = [
         validate: response => {
             if (response.trim() === "") {
                 console.log('Please enter a valid office number or suite.')
-            } return true;
-        }
+            } else {
+                return true;
+        }}
     },
     {
         type: 'list',
@@ -93,8 +97,9 @@ const teamMemberQs = [
         validate: response => {
             if (response.trim() === "") {
                 console.log('Please enter a name.')
-            } return true;
-        }
+            } else {
+                return true;
+        }}
     },
     {
         type: 'input',
@@ -103,8 +108,9 @@ const teamMemberQs = [
         validate: response => {
             if (response.trim() === "") {
                 console.log('Please enter a valid email address.')
-            } return true;
-        }
+            }  else {
+                return true;
+        }}
     },
     {
         type: 'input',
@@ -113,8 +119,9 @@ const teamMemberQs = [
         validate: response => {
             if (response.trim() === "") {
                 console.log('Please enter a valid employee ID number.');
-            } return true;
-        }
+            }  else {
+                return true;
+        }}
     },
     {
         type: 'list',
@@ -131,8 +138,9 @@ const teamMemberQs = [
         validate: response => {
             if (response.trim() === "") {
                 console.log('Please enter a valid GitHub username.')
-            } return true;
-        }
+            }  else {
+                return true;
+        }}
     },
     {
         when: response => response.role === 'Intern',
@@ -142,27 +150,17 @@ const teamMemberQs = [
         validate: response => {
             if (response.trim() == "") {
                 console.log('Please enter a valid school name.');
-            } return true;
-        }
+            }  else {
+                return true;
+        }}
     },
-];
-
-const addAnEmployeeQs = [
     {
         type: 'list',
-        name: 'addEmployee',
-        message: 'Would you like to add another employee?',
+        name: 'addTeam',
+        message: "Would you like to add employees to the manager's team?",
         choices: ['Yes', 'No']
-    },
-    {
-        when: response => {
-            if (response === "Yes") {
-                initEmployee();
-            } return true;
-        }
     }
-]
-
+];
 
 const initManager = function () {
     inquirer.prompt(teamManagerQs).then(response => {
@@ -171,7 +169,7 @@ const initManager = function () {
         if (response.addTeam === 'Yes') {
             initEmployee();
         } else {
-            return;
+            render();
         }
     })
 }
@@ -181,18 +179,20 @@ const initEmployee = function () {
         if (response.role === 'Engineer') {
             let newEngineer = new Engineer(response.name, response.email, response.id, response.gitHub);
             employees.push(newEngineer);
+            console.log(employees);
         } else {
             let newIntern = new Intern(response.name, response.email, response.id, response.school);
             employees.push(newIntern);
+            console.log(employees);
         }
-        inquirer.prompt(addAnEmployeeQs).then(response => {
-            if (response.addTeam === 'Yes') {
-                initEmployee();
-            } else {
-                render();
-            }
-        })
+        if (response.addTeam === 'Yes') {
+            initEmployee();
+        } else {
+            render();
+        }
     })
 }
 
 initManager();
+
+module.exports = employees;
