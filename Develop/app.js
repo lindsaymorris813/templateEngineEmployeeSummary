@@ -44,7 +44,7 @@ const teamManagerQs = [
         validate: response => {
             if (response.trim() === "") {
                 console.log('Please enter a name.')
-            }
+            } return true;
         }
     },
     {
@@ -54,7 +54,7 @@ const teamManagerQs = [
         validate: response => {
             if (response.trim() === "") {
                 console.log('Please enter a valid email address.')
-            }
+            } return true;
         }
     },
     {
@@ -62,9 +62,9 @@ const teamManagerQs = [
         name: 'id',
         message: "What is manager's employee ID number?",
         validate: response => {
-            if (response.typeof() !== 'number') {
+            if (response.trim() === "") {
                 console.log('Please enter a valid employee ID number.');
-            }
+            } return true;
         }
     },
     {
@@ -74,7 +74,7 @@ const teamManagerQs = [
         validate: response => {
             if (response.trim() === "") {
                 console.log('Please enter a valid office number or suite.')
-            }
+            } return true;
         }
     },
     {
@@ -93,7 +93,7 @@ const teamMemberQs = [
         validate: response => {
             if (response.trim() === "") {
                 console.log('Please enter a name.')
-            }
+            } return true;
         }
     },
     {
@@ -103,7 +103,7 @@ const teamMemberQs = [
         validate: response => {
             if (response.trim() === "") {
                 console.log('Please enter a valid email address.')
-            }
+            } return true;
         }
     },
     {
@@ -111,9 +111,9 @@ const teamMemberQs = [
         name: 'id',
         message: "What is employee's employee ID number?",
         validate: response => {
-            if (response.typeof() !== 'number') {
+            if (response.trim() === "") {
                 console.log('Please enter a valid employee ID number.');
-            }
+            } return true;
         }
     },
     {
@@ -131,7 +131,7 @@ const teamMemberQs = [
         validate: response => {
             if (response.trim() === "") {
                 console.log('Please enter a valid GitHub username.')
-            }
+            } return true;
         }
     },
     {
@@ -142,7 +142,7 @@ const teamMemberQs = [
         validate: response => {
             if (response.trim() == "") {
                 console.log('Please enter a valid school name.');
-            }
+            } return true;
         }
     },
 ];
@@ -158,7 +158,7 @@ const addAnEmployeeQs = [
         when: response => {
             if (response === "Yes") {
                 initEmployee();
-            }
+            } return true;
         }
     }
 ]
@@ -168,7 +168,6 @@ const initManager = function () {
     inquirer.prompt(teamManagerQs).then(response => {
         let newManager = new Manager(response.name, response.email, response.id, response.office);
         employees.push(newManager);
-    }).then(response => {
         if (response.addTeam === 'Yes') {
             initEmployee();
         } else {
