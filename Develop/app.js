@@ -9,7 +9,8 @@ const OUTPUT_DIR = path.resolve(__dirname, "output");
 const outputPath = path.join(OUTPUT_DIR, "team.html");
 
 const render = require("./lib/htmlRenderer");
-
+const Employee = require("./lib/Employee");
+let employees =[];
 
 // Write code to use inquirer to gather information about the development team members,
 // and to create objects for each team member (using the correct classes as blueprints!)
@@ -71,7 +72,7 @@ const teamManagerQs = [
     },
     {
         type: 'input',
-        name: 'email',
+        name: 'office',
         message: "What is manager's office number or suite?",
         validate: response => {
             if (response.trim() === "") {
@@ -125,7 +126,7 @@ const teamMemberQs = [
     {
         when: response => response.role === 'Engineer'
         ,
-        type: input,
+        type: 'input',
         name: 'gitHub',
         message: "What is the engineer's GitHub username?",
         validate: response => {
@@ -137,7 +138,7 @@ const teamMemberQs = [
     },
     {
         when: response => response.role === 'Intern',
-        type: input,
+        type: 'input',
         name: 'school',
         message: 'What school does the intern attend?',
         validate: response => {
@@ -148,3 +149,44 @@ const teamMemberQs = [
         }
     }, 
     ]; 
+
+ const addAnEmployeeQs = [
+    {
+        type: 'list',
+        name: 'addEmployee',
+        message: 'Would you like to add another employee?',
+        choices: ['Yes', 'No']
+    },
+    {
+        when: response => {
+            if (response === "Yes") {
+                initEmployee();
+            } else{
+                return;
+            }
+        }
+    }
+ ]   
+
+
+const initManager = function() {
+    inquirer.prompt(teamManagerQs).then(response => {
+        let newManager = new Manager(response.name, response.email, response.id, response.office);
+        employees.push(newManager);
+    }).then(initEmployee());
+}
+
+const initEmployee = function() {
+    inquirer.prompt(teamMemberQs).then(response => {
+            if (response.role === 'Engineer') {
+                let newEngineer = new Engineer (response.name, response.email, response.id, response.gitHub);
+                employees.push(newEngineer);
+            } else{
+                let newIntern = new Intern(response.name, response.email, response.id, response.school);
+                employees.push(newIntern);
+            }
+            inquirer.prompt(addAnEmployeeQs).then(render());
+    })
+}
+
+initManager();
