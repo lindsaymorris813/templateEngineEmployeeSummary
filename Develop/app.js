@@ -10,7 +10,7 @@ const outputPath = path.join(OUTPUT_DIR, "team.html");
 
 const render = require("./lib/htmlRenderer");
 const Employee = require("./lib/Employee");
-let employees = [];
+let employeeList = [];
 
 // Write code to use inquirer to gather information about the development team members,
 // and to create objects for each team member (using the correct classes as blueprints!)
@@ -165,11 +165,20 @@ const teamMemberQs = [
 const initManager = function () {
     inquirer.prompt(teamManagerQs).then(response => {
         let newManager = new Manager(response.name, response.email, response.id, response.office);
-        employees.push(newManager);
+        employeeList.push(newManager);
         if (response.addTeam === 'Yes') {
             initEmployee();
         } else {
-            render();
+            console.log(employeeList);
+            var html = render(employeeList);
+            fs.mkdir(path.join(__dirname, 'output'), {}, function(err) {
+                if (err)  throw (err); 
+                console.log('Folder Created...');
+            })
+            fs.writeFile(outputPath, html, (err) => {
+                if (err) throw (err);
+                console.log("File written to...");
+            })
         }
     })
 }
@@ -178,18 +187,28 @@ const initEmployee = function () {
     inquirer.prompt(teamMemberQs).then(response => {
         if (response.role === 'Engineer') {
             let newEngineer = new Engineer(response.name, response.email, response.id, response.gitHub);
-            employees.push(newEngineer);
+            employeeList.push(newEngineer);
             console.log(employees);
         } else {
             let newIntern = new Intern(response.name, response.email, response.id, response.school);
-            employees.push(newIntern);
+            employeeList.push(newIntern);
             console.log(employees);
         }
         if (response.addTeam === 'Yes') {
             initEmployee();
         } else {
-            render(employees);
+            console.log(employeeList);
+            var html = render(employeeList);
+            fs.mkdir(path.join(__dirname, 'output'), {}, function(err) {
+                if (err)  throw (err); 
+                console.log('Folder Created...');
+            })
+            fs.writeFile(outputPath, html, (err) => {
+                if (err) throw (err);
+                console.log("File written to...");
+            })
         }
+        
     })
 }
 
