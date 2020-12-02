@@ -46,7 +46,8 @@ const teamManagerQs = [
                 console.log('Please enter a name.')
             } else {
                 return true;
-        }}
+            }
+        }
     },
     {
         type: 'input',
@@ -57,7 +58,8 @@ const teamManagerQs = [
                 console.log('Please enter a valid email address.')
             } else {
                 return true;
-        }}
+            }
+        }
     },
     {
         type: 'input',
@@ -68,7 +70,8 @@ const teamManagerQs = [
                 console.log('Please enter a valid employee ID number.');
             } else {
                 return true;
-        }}
+            }
+        }
     },
     {
         type: 'input',
@@ -79,7 +82,8 @@ const teamManagerQs = [
                 console.log('Please enter a valid office number or suite.')
             } else {
                 return true;
-        }}
+            }
+        }
     },
     {
         type: 'list',
@@ -99,7 +103,8 @@ const teamMemberQs = [
                 console.log('Please enter a name.')
             } else {
                 return true;
-        }}
+            }
+        }
     },
     {
         type: 'input',
@@ -108,9 +113,10 @@ const teamMemberQs = [
         validate: response => {
             if (response.trim() === "") {
                 console.log('Please enter a valid email address.')
-            }  else {
+            } else {
                 return true;
-        }}
+            }
+        }
     },
     {
         type: 'input',
@@ -119,9 +125,10 @@ const teamMemberQs = [
         validate: response => {
             if (response.trim() === "") {
                 console.log('Please enter a valid employee ID number.');
-            }  else {
+            } else {
                 return true;
-        }}
+            }
+        }
     },
     {
         type: 'list',
@@ -138,9 +145,10 @@ const teamMemberQs = [
         validate: response => {
             if (response.trim() === "") {
                 console.log('Please enter a valid GitHub username.')
-            }  else {
+            } else {
                 return true;
-        }}
+            }
+        }
     },
     {
         when: response => response.role === 'Intern',
@@ -150,9 +158,10 @@ const teamMemberQs = [
         validate: response => {
             if (response.trim() == "") {
                 console.log('Please enter a valid school name.');
-            }  else {
+            } else {
                 return true;
-        }}
+            }
+        }
     },
     {
         type: 'list',
@@ -171,14 +180,14 @@ const initManager = function () {
         } else {
             var html = render(employeeList);
             if (!fs.existsSync(OUTPUT_DIR)) {
-            fs.mkdir(path.join(__dirname, 'output'), {}, function(err) {
-                if (err)  throw (err); 
-                console.log('Folder Created...');
-            })} else {
-            fs.writeFile(outputPath, html, (err) => {
-                if (err) throw (err);
-                console.log('File written to...');
-            })}
+                fs.mkdir(path.join(__dirname, 'output'), {}, function (err) {
+                    if (err) throw (err);
+                })
+            } else {
+                fs.writeFile(outputPath, html, (err) => {
+                    if (err) throw (err);
+                })
+            }
         }
     })
 }
@@ -188,27 +197,25 @@ const initEmployee = function () {
         if (response.role === 'Engineer') {
             let newEngineer = new Engineer(response.name, response.email, response.id, response.gitHub);
             employeeList.push(newEngineer);
-            console.log(employeeList);
         } else {
             let newIntern = new Intern(response.name, response.email, response.id, response.school);
             employeeList.push(newIntern);
-            console.log(employeeList);
         }
         if (response.addTeam === 'Yes') {
             initEmployee();
         } else {
             var html = render(employeeList);
             if (!fs.existsSync(OUTPUT_DIR)) {
-            fs.mkdir(path.join(__dirname, 'output'), {}, function(err) {
-                if (err)  throw (err); 
-                console.log('Folder Created...');
-            })} else {
-            fs.writeFile(outputPath, html, (err) => {
-                if (err) throw (err);
-                console.log('File written to...');
-            })}
+                fs.mkdir(path.join(__dirname, 'output'), {}, function (err) {
+                    if (err) throw (err);
+                })
+            } else {
+                fs.writeFile(outputPath, html, (err) => {
+                    if (err) throw (err);
+                })
+            }
         }
-        
+
     })
 }
 
