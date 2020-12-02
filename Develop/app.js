@@ -188,11 +188,9 @@ const initEmployee = function () {
         if (response.addTeam === 'Yes') {
             initEmployee();
         } else {
-            render();
+            render(employees);
         }
     })
 }
 
 initManager();
-
-module.exports = employees;
