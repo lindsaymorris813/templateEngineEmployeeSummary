@@ -45,7 +45,6 @@ const teamManagerQs = [
             if (response.trim() === "") {
                 console.log('Please enter a name.')
             }
-            return;
         }
     },
     {
@@ -56,7 +55,6 @@ const teamManagerQs = [
             if (response.trim() === "") {
                 console.log('Please enter a valid email address.')
             }
-            return;
         }
     },
     {
@@ -67,7 +65,6 @@ const teamManagerQs = [
             if (response.typeof() !== 'number') {
                 console.log('Please enter a valid employee ID number.');
             }
-            return;
         }
     },
     {
@@ -78,9 +75,8 @@ const teamManagerQs = [
             if (response.trim() === "") {
                 console.log('Please enter a valid office number or suite.')
             }
-            return;
         }
-    }
+    },
     {
         type: 'list',
         name: 'addTeam',
@@ -98,7 +94,6 @@ const teamMemberQs = [
             if (response.trim() === "") {
                 console.log('Please enter a name.')
             }
-            return;
         }
     },
     {
@@ -109,7 +104,6 @@ const teamMemberQs = [
             if (response.trim() === "") {
                 console.log('Please enter a valid email address.')
             }
-            return;
         }
     },
     {
@@ -120,7 +114,6 @@ const teamMemberQs = [
             if (response.typeof() !== 'number') {
                 console.log('Please enter a valid employee ID number.');
             }
-            return;
         }
     },
     {
@@ -139,7 +132,6 @@ const teamMemberQs = [
             if (response.trim() === "") {
                 console.log('Please enter a valid GitHub username.')
             }
-            return;
         }
     },
     {
@@ -151,7 +143,6 @@ const teamMemberQs = [
             if (response.trim() == "") {
                 console.log('Please enter a valid school name.');
             }
-            return;
         }
     },
 ];
@@ -167,8 +158,6 @@ const addAnEmployeeQs = [
         when: response => {
             if (response === "Yes") {
                 initEmployee();
-            } else {
-                return;
             }
         }
     }
