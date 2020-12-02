@@ -36,116 +36,115 @@ const render = require("./lib/htmlRenderer");
 // TODO: Write code to define and export the Employee class
 
 const teamManagerQs = [
-        {
-            type: 'input',
-            name: 'name',
-            message: "What is the team manager's name?",
-            validate: response => {
-                if (response.trim() === "") {
-                    console.log('Please enter a name.')
-                }
-                return;
+    {
+        type: 'input',
+        name: 'name',
+        message: "What is the team manager's name?",
+        validate: response => {
+            if (response.trim() === "") {
+                console.log('Please enter a name.')
             }
-        },
-        {
-            type: 'input',
-            name: 'email',
-            message: 'What is your email?',
-            validate: response => {
-                if (response.trim() === "") {
-                    console.log('Please enter a valid email address.')
-                }
-                return;
+            return;
+        }
+    },
+    {
+        type: 'input',
+        name: 'email',
+        message: "What is manager's email address?",
+        validate: response => {
+            if (response.trim() === "") {
+                console.log('Please enter a valid email address.')
             }
-        },
-        {
-            type: 'input',
-            name: 'id',
-            message: 'What is your employee ID number?',
-            validate: response => {
-                if (response.typeof() !== 'number') {
-                    console.log('Please enter a valid employee ID number.');
-                }
-                return;
+            return;
+        }
+    },
+    {
+        type: 'input',
+        name: 'id',
+        message: "What is manager's employee ID number?",
+        validate: response => {
+            if (response.typeof() !== 'number') {
+                console.log('Please enter a valid employee ID number.');
             }
-        },
-        {
-            type: 'input',
-            name: 'email',
-            message: 'What is your email?',
-            validate: response => {
-                if (response.trim() === "") {
-                    console.log('Please enter a valid email address.')
-                }
-                return;
+            return;
+        }
+    },
+    {
+        type: 'input',
+        name: 'email',
+        message: "What is manager's office number or suite?",
+        validate: response => {
+            if (response.trim() === "") {
+                console.log('Please enter a valid office number or suite.')
             }
-        }];
-
-            const teamMemberQs = [
-                {
-                    type: 'input',
-                    name: 'name',
-                    message: "What is the team manager's name?",
-                    validate: response => {
-                        if (response.trim() === "") {
-                            console.log('Please enter a name.')
-                        }
-                        return;
-                    }
-                },   
-        {
-            type: 'input',
-            name: 'email',
-            message: 'What is your email?',
-            validate: response => {
-                if (response.trim() === "") {
-                    console.log('Please enter a valid email address.')
-                }
-                return;
-            }
-        },
-        {
-            type: 'input',
-            name: 'id',
-            message: 'What is your employee ID number?',
-            validate: response => {
-                if (response.typeof() !== 'number') {
-                    console.log('Please enter a valid employee ID number.');
-                }
-                return;
-            }
-        },
-        {
-            type: 'list',
-            name: 'role',
-            message: 'What is your role?',
-            choices: ['Intern', 'Engineer', 'Manager']
-        },
-        {
-            when: response => response.role === 'Engineer'
-            ,
-            type: input,
-            name: 'gitHub',
-            message: 'What is your GitHub username?',
-            validate: response => {
-                if (response.trim() === "") {
-                    console.log('Please enter a valid GitHub username.')
-                }
-                return;
-            }
-        },
-        {
-            when: response => response.role === 'Intern',
-            type: input,
-            name: 'school',
-            message: 'What school do you attend?',
-            validate: response => {
-                if (response.trim() == "") {
-                    console.log('Please enter a valid school name.');
-                }
-                return;
-            }
-        },
-       
+            return;
+        }
     }
-    ]); 
+];
+
+const teamMemberQs = [
+    {
+        type: 'input',
+        name: 'name',
+        message: "What is employee's name?",
+        validate: response => {
+            if (response.trim() === "") {
+                console.log('Please enter a name.')
+            }
+            return;
+        }
+    },
+    {
+        type: 'input',
+        name: 'email',
+        message: "What is employee's email?",
+        validate: response => {
+            if (response.trim() === "") {
+                console.log('Please enter a valid email address.')
+            }
+            return;
+        }
+    },
+    {
+        type: 'input',
+        name: 'id',
+        message: "What is employee's employee ID number?",
+        validate: response => {
+            if (response.typeof() !== 'number') {
+                console.log('Please enter a valid employee ID number.');
+            }
+            return;
+        }
+    },
+    {
+        type: 'list',
+        name: 'role',
+        message: "What is employee's role?",
+        choices: ['Intern', 'Engineer']
+    },
+    {
+        when: response => response.role === 'Engineer'
+        ,
+        type: input,
+        name: 'gitHub',
+        message: "What is the engineer's GitHub username?",
+        validate: response => {
+            if (response.trim() === "") {
+                console.log('Please enter a valid GitHub username.')
+            }
+            return;
+        }
+    },
+    {
+        when: response => response.role === 'Intern',
+        type: input,
+        name: 'school',
+        message: 'What school does the intern attend?',
+        validate: response => {
+            if (response.trim() == "") {
+                console.log('Please enter a valid school name.');
+            }
+            return;
+        }
+    }, 
+    ]; 
