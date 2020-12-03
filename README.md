@@ -3,7 +3,8 @@
 [![License](https://img.shields.io/static/v1?label=none&message=${response.none}&color=success)](https://github.com/lindsaymorris813/ReadMeGenerator)
 
 ## Table of Contents:
-*[Description](#description)  
+*[Description](#description)
+*[Images](#images)  
 *[Installation](#installation)  
 *[Usage](#usage)  
 *[License](#license)  
@@ -14,6 +15,12 @@
 ## DESCRIPTION:
 
 a Node CLI that takes in information about employees and generates an HTML webpage that displays summaries for each person, includes and passes tests to ensure code is maintainable
+
+## IMAGES:
+
+[BrowserView](Assets/BrowserView.png)
+[TerminalView](Assets/TerminalView.png)
+
 
 ## INSTALLATION
 
